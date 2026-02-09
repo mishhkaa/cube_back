@@ -1,0 +1,2 @@
+TikTokEvents.init()
+FbEvents.init()
