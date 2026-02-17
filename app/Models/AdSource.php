@@ -11,7 +11,7 @@ use Pelfox\LaravelBigQuery\Facades\BigQuery;
 
 class AdSource extends Model
 {
-    protected $fillable = ['name', 'platform', 'accounts', 'settings', 'currency', 'active', 'user_id'];
+    protected $fillable = ['name', 'platform', 'accounts', 'settings', 'currency', 'active', 'user_id', 'client_id'];
 
     protected $casts = [
         'accounts' => 'array',
@@ -22,6 +22,11 @@ class AdSource extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
     }
 
     public function events(): HasMany

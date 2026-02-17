@@ -109,5 +109,13 @@ return [
     'bsg' => [
         'api_key' => env('BSG_API_KEY'),
         'slack-users' => env('SLACK_USER_ID_FOR_BSG')
-    ]
+    ],
+
+    'openai' => [
+        'api_key' => env('OPENAI_API_KEY'),
+    ],
+
+    'google_ai' => [
+        'api_key' => env('GOOGLE_AI_API_KEY'),
+    ],
 ];

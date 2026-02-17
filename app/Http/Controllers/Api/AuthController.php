@@ -36,7 +36,8 @@ class AuthController extends Controller
             ]);
         }
 
-        $user->tokens()->where('name', 'api')->delete();
+        // видаляємо старі токени (потрібен DELETE на personal_access_tokens)
+        // $user->tokens()->where('name', 'api')->delete();
         $token = $user->createToken('api')->plainTextToken;
 
         return [

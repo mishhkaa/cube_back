@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\Admin\RequestsStatsController;
 use App\Http\Controllers\Api\Admin\SummaryController;
 use App\Http\Controllers\Api\AdsSourceController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ClientController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\EventsController;
 use App\Http\Controllers\Api\FacebookController;
@@ -51,6 +52,7 @@ Route::middleware('auth:sanctum')->group(static function () {
         Route::get('tracking-users', \App\Http\Controllers\Api\TrackingUserController::class);
         Route::get('requests-by-ip', [RequestsStatsController::class, 'byIp']);
         Route::get('requests-by-country', [RequestsStatsController::class, 'byCountry']);
+        Route::post('ai-chat', \App\Http\Controllers\Api\Admin\AiChatController::class);
     });
 
     Route::prefix('dashboard')->group(static function () {
@@ -84,6 +86,12 @@ Route::middleware('auth:sanctum')->group(static function () {
     Route::get('users/all', [UserController::class, 'all']);
     Route::get('users/from-slack', [UserController::class, 'slackUsers']);
     Route::apiResource('users', UserController::class);
+
+    // Project Card endpoints
+    Route::get('clients/niches', [ClientController::class, 'getNiches']);
+    Route::get('clients/sub-niches', [ClientController::class, 'getSubNiches']);
+    Route::get('clients/statuses', [ClientController::class, 'getStatuses']);
+    Route::apiResource('clients', ClientController::class);
 
     Route::prefix('integrations')->group(static function () {
         Route::apiResource('fb-capi', FacebookPixelController::class);

@@ -24,5 +24,10 @@ class DatabaseSeeder extends Seeder
                 'active' => true,
             ]
         );
+
+        // Додаємо тестові дані для графіків
+        $this->call([
+            RequestSeeder::class,
+        ]);
     }
 }

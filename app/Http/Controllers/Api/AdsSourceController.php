@@ -15,9 +15,13 @@ use Illuminate\Http\Request;
 
 class AdsSourceController extends Controller
 {
-    public function index(): LengthAwarePaginator
+    public function index(Request $request): LengthAwarePaginator
     {
-        return AdSource::query()->orderBy('name' )->paginate(20);
+        $query = AdSource::query()->with('client:id,name')->orderBy('name');
+        if ($clientId = $request->query('client_id')) {
+            $query->where('client_id', $clientId);
+        }
+        return $query->paginate($request->query('per_page', 20));
     }
 
     public function getBigQuerySchema(AdSource $ads_source): array
@@ -37,8 +41,8 @@ class AdsSourceController extends Controller
 
     public function update(AdSource $ads_source): array
     {
-        return tap($ads_source, function (AdSource $source){
-            $source->update($this->request->only(['settings', 'project_id', 'user_id', 'active', 'accounts']));
+        return tap($ads_source, function (AdSource $source) {
+            $source->update($this->request->only(['settings', 'project_id', 'user_id', 'client_id', 'active', 'accounts']));
         })->toArray();
     }
 
